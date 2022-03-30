@@ -6,10 +6,11 @@ import Head from "next/head";
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import "./../App.css";
+import { AuthProvider } from "../contexts/AuthContext";
 
 export default function App(props) {
   const { Component, pageProps, settings } = props;
-  const [colorScheme, setColorScheme] = useState("light");
+  const [colorScheme, setColorScheme] = useState(props.colorScheme);
 
   const toggleColorScheme = (value) => {
     const nextColorScheme = value || (colorScheme === "dark" ? "light" : "dark");
@@ -20,7 +21,7 @@ export default function App(props) {
   const getLayout = Component.getLayout || ((page) => page);
 
   const theme = {
-    colorScheme: "light",
+    colorScheme,
     breakpoints: {
       xs: 500,
       sm: 800,
@@ -47,9 +48,11 @@ export default function App(props) {
       </Head>
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-          <NotificationsProvider>{getLayout(<Component {...pageProps} />)}</NotificationsProvider>
-        </MantineProvider>
+        <AuthProvider>
+          <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+            <NotificationsProvider>{getLayout(<Component {...pageProps} />)}</NotificationsProvider>
+          </MantineProvider>
+        </AuthProvider>
       </ColorSchemeProvider>
     </>
   );

@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import MainLayout from "./main";
 import DashboardLayout from "./dashboard";
+import AuthGuard from "../guards/AuthGuard";
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
@@ -17,8 +18,8 @@ export default function Layout({ variant = "dashboard", children }) {
   }
 
   return (
-    // <AuthGuard>
-    <DashboardLayout>{children}</DashboardLayout>
-    // </AuthGuard>
+    <AuthGuard>
+      <DashboardLayout>{children}</DashboardLayout>
+    </AuthGuard>
   );
 }

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AppShell, Navbar, Header, Title, Burger, MediaQuery } from "@mantine/core";
-import { DashboardSidebar } from "./DashboardSidebar";
+import { AppShell, Navbar, Header, Title, Burger, MediaQuery, Button } from "@mantine/core";
+import { DashboardSidebar } from "./components/DashboardSidebar";
+import useAuth from "../../hooks/useAuth";
+import DashboardHeader from "./components/DashboardHeader";
 
 export default function DashboardLayout({ children }) {
   const [opened, setOpened] = useState(false);
+  const { logout } = useAuth();
 
   const toggleOpened = () => setOpened(!opened);
 
@@ -13,15 +16,7 @@ export default function DashboardLayout({ children }) {
       navbarOffsetBreakpoint="sm"
       fixed
       navbar={<DashboardSidebar opened={opened} />}
-      header={
-        <Header height={60} p="sm" sx={{ display: "flex", alignItems: "center" }}>
-          {/* Header content */}
-          <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-            <Burger opened={opened} onClick={() => toggleOpened()} size="sm" />
-          </MediaQuery>
-          <Title order={3}>Hello</Title>
-        </Header>
-      }
+      header={<DashboardHeader opened={opened} toggleOpened={toggleOpened} />}
       styles={(theme) => ({
         main: {
           backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[0],
