@@ -1,5 +1,10 @@
 import { Title, Text, Anchor } from "@mantine/core";
 import { ColorSchemeToggle } from "../components/ColorSchemeToggle/ColorSchemeToggle";
+import Layout from "../layouts";
+
+HomePage.getLayout = function getLayout(page) {
+  return <Layout variant="main">{page}</Layout>;
+};
 
 export default function HomePage() {
   return (

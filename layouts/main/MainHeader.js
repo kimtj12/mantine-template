@@ -8,8 +8,8 @@ const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
   root: {
-    position: "relative",
-    zIndex: 1,
+    // position: "relative",
+    zIndex: 1000,
   },
 
   dropdown: {
@@ -86,11 +86,11 @@ export function MainHeader() {
     },
     {
       link: "/dashboard",
-      label: "Pricing",
+      label: "dashboard",
     },
     {
-      link: "/learn",
-      label: "Learn",
+      link: "/reservation",
+      label: "reservation",
     },
     {
       link: "/community",
@@ -120,7 +120,7 @@ export function MainHeader() {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} className={classes.root}>
+    <Header height={HEADER_HEIGHT} className={classes.root} fixed>
       <Container size="xl" className={classes.header}>
         <Burger opened={opened} onClick={() => toggleOpened()} className={classes.burger} size="sm" />
         {/* <MantineLogo /> */}
